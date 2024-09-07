@@ -9,7 +9,7 @@ docker buildx build --platform linux/arm64,linux/amd64 --tag <registry>/loginser
 
 ### Run
 ```
-docker run -d --cap-add NET_ADMIN -p "9000:9000/tcp" -p "9001:9001/tcp" -p "9080:9080/tcp" loginserver
+docker run -d -v ./loginserver:/data -v ./game_items.py:/app/taserver/common/game_items.py --cap-add NET_ADMIN -p "9000:9000/tcp" -p "9001:9001/tcp" -p "9080:9080/tcp" loginserver
 ```
 
 #### Docker Compose
@@ -22,6 +22,7 @@ services:
     container_name: loginserver
     volumes:
      - './loginserver:/data'
+     - './game_items.py:/app/taserver/common/game_items.py'
     ports:
      - 9000:9000
      - 9001:9001
